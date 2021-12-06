@@ -95,7 +95,7 @@ public class TypeButton extends View{
             canvas.drawCircle(center_X, center_Y, button_radius, mPaint);
             mPaint.setAntiAlias(true);
             mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setColor(0xFF00CC00);
+            mPaint.setColor(getResources().getColor(R.color.color_camera_primary));
             mPaint.setStrokeWidth(strokeWidth);
 
             path.moveTo(center_X - button_size / 6f, center_Y);
