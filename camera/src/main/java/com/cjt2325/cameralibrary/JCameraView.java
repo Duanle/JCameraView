@@ -132,7 +132,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
                 TypedValue.COMPLEX_UNIT_SP, 35, getResources().getDisplayMetrics()));
         iconMargin = a.getDimensionPixelSize(R.styleable.JCameraView_iconMargin, (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP, 15, getResources().getDisplayMetrics()));
-        iconSwitch = a.getResourceId(R.styleable.JCameraView_iconSrc, 0);
+        iconSwitch = a.getResourceId(R.styleable.JCameraView_iconSwitch, 0);
         iconBottomLeft = a.getResourceId(R.styleable.JCameraView_iconLeft, 0);
         iconBottomRight = a.getResourceId(R.styleable.JCameraView_iconRight, 0);
         duration = a.getInteger(R.styleable.JCameraView_duration_max, 10 * 1000);       //没设置默认为10s
