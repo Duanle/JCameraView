@@ -90,7 +90,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     private ImageView mSwitchCamera;
     private ImageView mFlashLamp;
     private CaptureLayout mCaptureLayout;
-    private FoucsView mFoucsView;
+    private FocusView mFocusView;
     private MediaPlayer mMediaPlayer;
 
     private int layout_width;
@@ -104,9 +104,9 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     //切换摄像头按钮的参数
     private int iconSize = 0;       //图标大小
     private int iconMargin = 0;     //右上边距
-    private int iconSrc = 0;        //图标资源
-    private int iconLeft = 0;       //左图标
-    private int iconRight = 0;      //右图标
+    private int iconSwitch = 0;        //图标资源
+    private int iconBottomLeft = 0;       //左图标
+    private int iconBottomRight = 0;      //右图标
     private int duration = 0;       //录制时间
 
     //缩放梯度
@@ -132,9 +132,9 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
                 TypedValue.COMPLEX_UNIT_SP, 35, getResources().getDisplayMetrics()));
         iconMargin = a.getDimensionPixelSize(R.styleable.JCameraView_iconMargin, (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP, 15, getResources().getDisplayMetrics()));
-        iconSrc = a.getResourceId(R.styleable.JCameraView_iconSrc, R.drawable.ic_camera);
-        iconLeft = a.getResourceId(R.styleable.JCameraView_iconLeft, 0);
-        iconRight = a.getResourceId(R.styleable.JCameraView_iconRight, 0);
+        iconSwitch = a.getResourceId(R.styleable.JCameraView_iconSrc, 0);
+        iconBottomLeft = a.getResourceId(R.styleable.JCameraView_iconLeft, 0);
+        iconBottomRight = a.getResourceId(R.styleable.JCameraView_iconRight, 0);
         duration = a.getInteger(R.styleable.JCameraView_duration_max, 10 * 1000);       //没设置默认为10s
         a.recycle();
         initData();
@@ -155,7 +155,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         mVideoView = (VideoView) view.findViewById(R.id.video_preview);
         mPhoto = (ImageView) view.findViewById(R.id.image_photo);
         mSwitchCamera = (ImageView) view.findViewById(R.id.image_switch);
-        mSwitchCamera.setImageResource(iconSrc);
+        mSwitchCamera.setImageResource(iconSwitch);
         mFlashLamp = (ImageView) view.findViewById(R.id.image_flash);
         setFlashRes();
         mFlashLamp.setOnClickListener(new OnClickListener() {
@@ -169,8 +169,8 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         });
         mCaptureLayout = (CaptureLayout) view.findViewById(R.id.capture_layout);
         mCaptureLayout.setDuration(duration);
-        mCaptureLayout.setIconSrc(iconLeft, iconRight);
-        mFoucsView = (FoucsView) view.findViewById(R.id.fouce_view);
+        mCaptureLayout.setIconSrc(iconBottomLeft, iconBottomRight);
+        mFocusView = (FocusView) view.findViewById(R.id.fouce_view);
         mVideoView.getHolder().addCallback(this);
         //切换摄像头
         mSwitchCamera.setOnClickListener(new OnClickListener() {
@@ -372,7 +372,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         machine.foucs(x, y, new CameraInterface.FocusCallback() {
             @Override
             public void focusSuccess() {
-                mFoucsView.setVisibility(INVISIBLE);
+                mFocusView.setVisibility(INVISIBLE);
             }
         });
     }
@@ -542,7 +542,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     @Override
     public void startPreviewCallback() {
         KLog.i(TAG,"startPreviewCallback");
-        handlerFoucs(mFoucsView.getWidth() / 2, mFoucsView.getHeight() / 2);
+        handlerFoucs(mFocusView.getWidth() / 2, mFocusView.getHeight() / 2);
     }
 
     @Override
@@ -550,24 +550,24 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         if (y > mCaptureLayout.getTop()) {
             return false;
         }
-        mFoucsView.setVisibility(VISIBLE);
-        if (x < mFoucsView.getWidth() / 2) {
-            x = mFoucsView.getWidth() / 2;
+        mFocusView.setVisibility(VISIBLE);
+        if (x < mFocusView.getWidth() / 2) {
+            x = mFocusView.getWidth() / 2;
         }
-        if (x > layout_width - mFoucsView.getWidth() / 2) {
-            x = layout_width - mFoucsView.getWidth() / 2;
+        if (x > layout_width - mFocusView.getWidth() / 2) {
+            x = layout_width - mFocusView.getWidth() / 2;
         }
-        if (y < mFoucsView.getWidth() / 2) {
-            y = mFoucsView.getWidth() / 2;
+        if (y < mFocusView.getWidth() / 2) {
+            y = mFocusView.getWidth() / 2;
         }
-        if (y > mCaptureLayout.getTop() - mFoucsView.getWidth() / 2) {
-            y = mCaptureLayout.getTop() - mFoucsView.getWidth() / 2;
+        if (y > mCaptureLayout.getTop() - mFocusView.getWidth() / 2) {
+            y = mCaptureLayout.getTop() - mFocusView.getWidth() / 2;
         }
-        mFoucsView.setX(x - mFoucsView.getWidth() / 2);
-        mFoucsView.setY(y - mFoucsView.getHeight() / 2);
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFoucsView, "scaleX", 1, 0.6f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFoucsView, "scaleY", 1, 0.6f);
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(mFoucsView, "alpha", 1f, 0.4f, 1f, 0.4f, 1f, 0.4f, 1f);
+        mFocusView.setX(x - mFocusView.getWidth() / 2);
+        mFocusView.setY(y - mFocusView.getHeight() / 2);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFocusView, "scaleX", 1, 0.6f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFocusView, "scaleY", 1, 0.6f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(mFocusView, "alpha", 1f, 0.4f, 1f, 0.4f, 1f, 0.4f, 1f);
         AnimatorSet animSet = new AnimatorSet();
         animSet.play(scaleX).with(scaleY).before(alpha);
         animSet.setDuration(400);

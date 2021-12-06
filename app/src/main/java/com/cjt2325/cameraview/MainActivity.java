@@ -48,13 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-//            @Override
-//            public void quit() {
-//                //退出按钮
-//                MainActivity.this.finish();
-//            }
         });
-        //6.0动态权限获取
         getPermissions();
     }
 

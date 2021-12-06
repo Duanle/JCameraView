@@ -95,14 +95,16 @@ public class CaptureButton extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 
+        progress_color = context.getResources().getColor(R.color.color_camera_primary);
+
         progress = 0;
         longPressRunnable = new LongPressRunnable();
 
         state = STATE_IDLE;                //初始化为空闲状态
         button_state = BUTTON_STATE_BOTH;  //初始化按钮为可录制可拍照
-        KLog.i(TAG,"CaptureButtom start");
+        KLog.i(TAG, "CaptureButtom start");
         duration = 10 * 1000;              //默认最长录制时间为10s
-        KLog.i(TAG,"CaptureButtom end");
+        KLog.i(TAG, "CaptureButtom end");
         min_duration = 1500;              //默认最短录制时间为1.5s
 
         center_X = (button_size + outside_add_size * 2) / 2;
@@ -148,7 +150,7 @@ public class CaptureButton extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                KLog.i(TAG,"state = " + state);
+                KLog.i(TAG, "state = " + state);
                 if (event.getPointerCount() > 1 || state != STATE_IDLE)
                     break;
                 event_Y = event.getY();     //记录Y值

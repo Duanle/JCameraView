@@ -1,0 +1,8 @@
+<resources>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackLight">#3A3939</color>
+    <color name="colorRed">#F9605F</color>
+
+    <color name="color_camera_primary">@color/colorRed</color>
+</resources>

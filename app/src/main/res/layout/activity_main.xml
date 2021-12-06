@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:duration_max="10000"
-        app:iconMargin="20dp"
-        app:iconSize="30dp"
-        app:iconSrc="@drawable/ic_camera_enhance_black_24dp"/>
+        app:iconRight="@mipmap/ic_launcher"
+        app:iconMargin="20dp"/>
 </LinearLayout>
