@@ -1,4 +1,4 @@
 <resources>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="color_camera_primary">colorWhite</color>
+    <color name="color_camera_primary">@color/colorWhite</color>
 </resources>
